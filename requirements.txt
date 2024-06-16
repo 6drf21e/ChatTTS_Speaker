@@ -1,0 +1,3 @@
+gradio==4.20.0
+gradio_leaderboard==0.0.9
+python-dotenv
