@@ -1,14 +1,12 @@
 [English README](README.en.md) | [中文简体](README.md)
 
-# 🥇 ChatTTS Speaker Leaderboard
+# 🎤 ChatTTS稳定音色评分与音色打标（实验性）
 
-## 🎤 :ChatTTS稳定音色评分与音色打标（实验性）
-
-本项目基于 [ChatTTS](https://github.com/2noise/ChatTTS)
-
-评估基于通义实验室的 [eres2netv2_sv_zh-cn](https://modelscope.cn/models/iic/speech_eres2netv2_sv_zh-cn_16k-common/summary)。
+本项目基于 [ChatTTS](https://github.com/2noise/ChatTTS) 评估基于通义实验室 [ERes2NetV2 说话人识别模型](https://modelscope.cn/models/iic/speech_eres2netv2_sv_zh-cn_16k-common/summary)。
 
 欢迎下载试听音色！本项目已开源：[ChatTTS_Speaker](https://github.com/6drf21e/ChatTTS_Speaker) 欢迎 PR。
+
+当前测评音色 2600 个
 
 ## 马上体验
 
