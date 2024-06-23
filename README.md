@@ -1,12 +1,19 @@
-[English README](README.en.md) | [中文简体](README.md)
+<div align="center">
+
 
 # 🎤 ChatTTS稳定音色评分与音色打标（实验性）
 
-本项目基于 [ChatTTS](https://github.com/2noise/ChatTTS) 评估基于通义实验室 [ERes2NetV2 说话人识别模型](https://modelscope.cn/models/iic/speech_eres2netv2_sv_zh-cn_16k-common/summary)。
-
-欢迎下载试听音色！本项目已开源：[ChatTTS_Speaker](https://github.com/6drf21e/ChatTTS_Speaker) 欢迎 PR。
+项目基于 [ChatTTS](https://github.com/2noise/ChatTTS) | 评估基于通义实验室 [ERes2NetV2 说话人识别模型](https://modelscope.cn/models/iic/speech_eres2netv2_sv_zh-cn_16k-common/summary)。
 
 当前测评音色 2600 个
+
+[![Open In ModeScope](https://img.shields.io/badge/Open%20In-ModeScope-blue?style=for-the-badge)](https://modelscope.cn/studios/ttwwwaa/ChatTTS_Speaker)
+[![Huggingface](https://img.shields.io/badge/🤗%20-Models-yellow.svg?style=for-the-badge)](https://huggingface.co/spaces/taa/ChatTTS_Speaker)
+
+
+[**English**](README.en.md) | [**简体中文**](README.md)
+
+</div>
 
 ## 马上体验
 
