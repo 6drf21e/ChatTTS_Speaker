@@ -45,6 +45,22 @@ def convert_to_markdown(percentage_str):
     markdown_str = "  ".join([f"**{item.split(':')[0]}** {item.split(':')[1]}%" for item in items])
     return markdown_str
 
+def convert_to_str(percentage_str):
+    """
+    将百分比字符串转换为 str
+    :param percentage_str:
+    :return:
+    """
+    if not percentage_str or not isinstance(percentage_str, str):
+        return "未知"
+    items = percentage_str.split(";")
+    # sort by value
+    items.sort(key=lambda x: float(x.split(':')[1]), reverse=True)
+    keys = [item.split(':')[0] for item in items]
+    if keys and keys[0]:
+        return keys[0]
+    else:
+        return "未知"
 
 # Load
 df = pd.read_csv("evaluation_results.csv", encoding="utf-8")
@@ -52,7 +68,9 @@ df = pd.read_csv("evaluation_results.csv", encoding="utf-8")
 df["rank_long"] = df["rank_long"].apply(lambda x: round(x, 2))
 df["rank_multi"] = df["rank_multi"].apply(lambda x: round(x, 2))
 df["rank_single"] = df["rank_single"].apply(lambda x: round(x, 2))
+df["gender_filter"] = df["gender"].apply(convert_to_str)
 df["gender"] = df["gender"].apply(convert_to_markdown)
+df["age_filter"] = df["age"].apply(convert_to_str)
 df["age"] = df["age"].apply(convert_to_markdown)
 df["feature"] = df["feature"].apply(convert_to_markdown)
 df["score"] = df["score"].apply(lambda x: round(x, 2))
@@ -216,8 +234,8 @@ params_infer_code = {
                     select_columns=["seed_id", "rank_long", "rank_multi", "rank_single", "score", "gender", "age",
                                     "feature"],
                     search_columns=["gender", "age"],
-                    filter_columns=["rank_long", "rank_multi", "rank_single", ],
-                    hide_columns=["emb_data"],
+                    filter_columns=["rank_long", "rank_multi", "rank_single", "gender_filter", "age_filter"],
+                    hide_columns=["emb_data", "gender_filter", "age_filter"],
                 )
                 stats = gr.State(value=[1])
                 download_button = gr.DownloadButton("Download .pt File", visible=True)
