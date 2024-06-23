@@ -7,8 +7,8 @@
 
 当前测评音色 2600 个
 
-[![Open In ModeScope](https://img.shields.io/badge/Open%20In-ModeScope-blue?style=for-the-badge)](https://modelscope.cn/studios/ttwwwaa/ChatTTS_Speaker)
-[![Huggingface](https://img.shields.io/badge/🤗%20-Models-yellow.svg?style=for-the-badge)](https://huggingface.co/spaces/taa/ChatTTS_Speaker)
+[![Open In ModeScope](https://img.shields.io/badge/Open%20In-modelscope-blue?style=for-the-badge)](https://modelscope.cn/studios/ttwwwaa/ChatTTS_Speaker)
+[![Huggingface](https://img.shields.io/badge/🤗%20-Spaces-yellow.svg?style=for-the-badge)](https://huggingface.co/spaces/taa/ChatTTS_Speaker)
 
 
 [**English**](README.en.md) | [**简体中文**](README.md)
