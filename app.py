@@ -8,6 +8,10 @@ import requests
 from dotenv import load_dotenv
 from gradio_leaderboard import Leaderboard
 from pandas import DataFrame
+import torch
+import pybase16384 as b14
+import numpy as np
+import lzma
 
 load_dotenv()
 
@@ -20,6 +24,25 @@ storage_url = os.getenv("STORAGE_URL")
 tmp_dir = os.path.join(os.getcwd(), "tmp")
 os.makedirs(tmp_dir, exist_ok=True)
 
+
+def _encode_spk_emb(spk_emb: torch.Tensor) -> str:
+    with torch.no_grad():
+        arr: np.ndarray = spk_emb.to(dtype=torch.float16, device="cpu").numpy()
+        s = b14.encode_to_string(
+            lzma.compress(
+                arr.tobytes(),
+                format=lzma.FORMAT_RAW,
+                filters=[
+                    {"id": lzma.FILTER_LZMA2, "preset": 9 | lzma.PRESET_EXTREME}
+                ],
+            ),
+        )
+        del arr
+    return s
+
+def pt2str(pt_path):
+    spk_emb = torch.load(pt_path, map_location="cpu")
+    return _encode_spk_emb(spk_emb)
 
 def file_to_base64(file_path):
     with open(file_path, "rb") as file:
@@ -165,6 +188,9 @@ def seed_change(evt: gr.SelectData, value=None):
     # 获取 pt 文件
     down_file = restore_pt_file(seed_id)
 
+    # spk_emb_str
+    spk_emb_str = pt2str(down_file)
+
     # 获取试听文件
     wav_file = restore_wav_file(seed_id)
     if wav_file and not os.path.exists(wav_file):
@@ -175,6 +201,7 @@ def seed_change(evt: gr.SelectData, value=None):
         evt.index,
         gr.DownloadButton(value=down_file, label=f"Download .pt File [{seed_id}]", visible=True),
         gr.Audio(wav_file, visible=wav_file is not None),
+        spk_emb_str,
     ]
 
 
@@ -239,10 +266,11 @@ params_infer_code = {
                 )
                 stats = gr.State(value=[1])
                 download_button = gr.DownloadButton("Download .pt File", visible=True)
+                spk_emb_str = gr.Textbox("", label="音色码/speaker embedding", lines=10)
                 test_audio = gr.Audio(visible=True)
                 gr.Markdown("选择 seed_id 才能下载 .pt 文件和试听音频。")
                 # download_button.click(download, inputs=[stats], outputs=[])
-                leaderboard.select(seed_change, inputs=[leaderboard], outputs=[stats, download_button, test_audio])
+                leaderboard.select(seed_change, inputs=[leaderboard], outputs=[stats, download_button, test_audio, spk_emb_str])
 
     with gr.Tab(label="📊Details"):
         gr.Markdown("""

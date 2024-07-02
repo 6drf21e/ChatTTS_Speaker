@@ -1,3 +1,6 @@
 gradio==4.20.0
 gradio_leaderboard==0.0.9
 python-dotenv
+pybase16384
+torch==2.1.0
+numpy<2.0.0
